@@ -1,6 +1,15 @@
 const express = require('express');
 const app = express();
 app.use(express.json());
+const morgan = require('morgan');
+app.use(morgan('dev'));
+const cors = require('cors');
+app.use(cors({
+  origin: 'http://localhost:3000' // only allow this one frontend
+}));
+const logger = require('./Data/middleware/logger');
+
+app.use(logger); // runs on every request
 
 const users = require('./Routes/Way');
 
